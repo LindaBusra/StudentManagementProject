@@ -2,6 +2,22 @@
 @US_06_smoke_test
 Feature: US_06 Deans should be able to create a Vice Dean account.
 
+
+#  USER STORY-06  Deans should be able to create a Vice Dean account.
+
+#  Acceptance Criteria
+#  "Name" must be entered and cannot be left blank.
+#  Surname" must be entered and cannot be left blank
+#  "Birth Place" must be entered and cannot be left blank.
+#  Gender must be selected and cannot be left blank.
+#  Date of birth must be entered and cannot be left blank.
+#  Phone number must be entered and cannot be left blank.
+#  SSN must be entered and must contain a "-" after the 3rd and 5th digits and must consist of 9 digits in total and cannot be left blank.
+#  User Name must be entered and cannot be left blank.
+#  Password can be entered and must consist of at least 8 characters.
+#  Password must contain uppercase letters, lowercase letters, and a number.
+
+
   Background: Sign in StudentManagement
     Given user is on the home page :  "https://managementonschools.com/login"
     When user clicks on login icon
@@ -44,8 +60,33 @@ Feature: US_06 Deans should be able to create a Vice Dean account.
     Then user close the browser
 
 
+
+
   @US06_TC04
-  Scenario: TC_004 "Date of birth" must be entered and cannot be left blank.
+
+  Scenario: TC_004 Gender must be selected and cannot be left blank..
+    When user fills in Name field with "Ada"
+    And user fills in Surname field with "Berg"
+    And user fills in Birth Place field with "Norway"
+    And user fills in Date Of Birth field with "29.11.2000"
+    And user fills in Phone number field with "355-478-7894"
+    And user fills in SSN number field with "777-45-8963"
+    And user fills in username field with "adaberg"
+    And user fills in password field with "A123457."
+    And user verifies female and male button is not selected
+    Then user clicks on submit button
+    Then user verifies "Vice dean Saved" text is not visible
+    And user verifies female or male button is selected
+    Then user clicks on submit button
+    Then user verifies after click on submit button "Vice dean Saved" text is visible
+
+#problem with line 78 ve 81
+
+
+
+
+  @US06_TC05
+  Scenario: TC_005 "Date of birth" must be entered and cannot be left blank.
     When user fills in Name field with "Ada"
     And user fills in Surname field with "Berg"
     And user fills in Birth Place field with "Norway"
@@ -55,8 +96,10 @@ Feature: US_06 Deans should be able to create a Vice Dean account.
     Then user verifies Required text is not visible for Date Of Birth field
     Then user close the browser
 
-  @US06_TC05
-  Scenario: TC_005 "Phone number" must be entered and cannot be left blank.
+
+
+  @US06_TC06
+  Scenario: TC_006 "Phone number" must be entered and cannot be left blank.
     When user fills in Name field with "Ada"
     And user fills in Surname field with "Berg"
     And user fills in Birth Place field with "Norway"
@@ -69,8 +112,8 @@ Feature: US_06 Deans should be able to create a Vice Dean account.
 
 
 
-  @US06_TC06
-  Scenario: TC_006 SSN must be entered and must contain a "-" after the 3rd and 5th digits and must consist of 9 digits in total and cannot be left blank.
+  @US06_TC07
+  Scenario: TC_007 SSN must be entered and must contain a "-" after the 3rd and 5th digits and must consist of 9 digits in total and cannot be left blank.
     When user fills in Name field with "Ada"
     And user fills in Surname field with "Berg"
     And user fills in Birth Place field with "Norway"
@@ -78,8 +121,72 @@ Feature: US_06 Deans should be able to create a Vice Dean account.
     And user fills in Phone number field with "355-478-7894"
     When user passes SSN field without filling
     Then user verifies Required text is visible when user does not fill SSN field
-    Then user fills in SSN number field with "777-455-8963"
+    And user fills in SSN number field with less than 11 character "77-455"
+    Then user verifies "Minimum 11 character (XXX-XX-XXXX)" text is visible
+    And user fills in SSN number field with invalid number "77-455-8963"
+    And user clicks on submit button
+    Then user verifies "Please enter valid SSN number" alert text is visible
+    Then user fills in SSN number field with "777-45-8963"
     Then user verifies Required text is not visible for SSN field
+    Then user close the browser
+
+#there is problem with line 128 !!!!  Then user verifies "Please enter valid SSN number" alert text is visible
+
+
+  @US06_TC08
+  Scenario: TC_008 User Name must be entered and cannot be left blank.
+    When user fills in Name field with "Ada"
+    And user fills in Surname field with "Berg"
+    And user fills in Birth Place field with "Norway"
+    And user fills in Date Of Birth field with "29.11.2000"
+    And user fills in Phone number field with "355-478-7894"
+    And user fills in SSN number field with "777-45-8963"
+    When user passes username field without filling
+    Then user verifies Required text is visible when user does not fill username field
+    And user fills in username field with "adaberg"
+    Then user verifies Required text is not visible for username field
+    Then user close the browser
+
+
+  @US06_TC09
+  Scenario: TC_009 Password can be entered and must consist of at least 8 characters.
+    When user fills in Name field with "Ada"
+    And user fills in Surname field with "Berg"
+    And user fills in Birth Place field with "Norway"
+    And user fills in Date Of Birth field with "29.11.2000"
+    And user fills in Phone number field with "355-478-7894"
+    And user fills in SSN number field with "777-45-8963"
+    And user fills in username field with "adaberg"
+    When user passes password field without filling
+    And user clicks on submit button
+    Then user verifies Required text is visible for password field
+    And user fills in password field with less than 8 character like "77455"
+    Then user verifies "Minimum 8 character" text is visible for password field
+    And user fills in password field with "A123456."
+    Then user verifies Required text is not visible for password field
+    Then user close the browser
+
+
+  @US06_TC10
+  Scenario: TC_010 Password must contain uppercase letters, lowercase letters, and a number.
+    When user fills in Name field with "Ada"
+    And user fills in Surname field with "Berg"
+    And user fills in Birth Place field with "Norway"
+    And user fills in Date Of Birth field with "29.11.2000"
+    And user fills in Phone number field with "355-478-7894"
+    And user fills in SSN number field with "777-45-8963"
+    And user fills in username field with "adaberg"
+    When user passes password field without filling
+    And user clicks on submit button
+    Then user verifies Required text is visible for password field
+    And user fills in password field with less than 8 character like "77455"
+    Then user verifies "Minimum 8 character" text is visible for password field
+    And user fills in password field with invalid password "12345678"
+    And user clicks on submit button
+    Then user verifies "Vice dean Saved" text is not visible
+    And user fills in password field with "A123456."
+    And user clicks on submit button
+    Then user verifies after click on submit button "Vice dean Saved" text is visible
     Then user close the browser
 
 

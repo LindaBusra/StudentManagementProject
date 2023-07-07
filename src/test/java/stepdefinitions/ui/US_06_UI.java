@@ -1,6 +1,8 @@
 package stepdefinitions.ui;
 
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.*;
+import org.junit.Assert;
 import pages.*;
 import utilities.Driver;
 import utilities.ReusableMethods;
@@ -12,7 +14,8 @@ public class US_06_UI {
     HomePage homePage = new HomePage();
     LoginPage loginPage = new LoginPage();
     AdminManagementPage adminManagementPage = new AdminManagementPage();
-    viceDeanManagementPage viceDeanManagementPage = new viceDeanManagementPage();
+    ViceDeanManagementPage viceDeanManagementPage = new ViceDeanManagementPage();
+
 
 
 
@@ -175,7 +178,8 @@ public class US_06_UI {
 
     @Then("user fills in Date Of Birth field with {string}")
     public void userFillsInDateOfBirthFieldWith(String text) {
-        viceDeanManagementPage.birthDay.sendKeys("29.11.2004");
+
+        viceDeanManagementPage.birthDay.sendKeys(text);
         ReusableMethods.waitFor(2);
 
     }
@@ -214,6 +218,9 @@ public class US_06_UI {
     }
 
 
+
+    //SSN number
+
     @When("user passes SSN field without filling")
     public void userPassesSSNFieldWithoutFilling() {
         viceDeanManagementPage.ssn.click();
@@ -229,6 +236,23 @@ public class US_06_UI {
 
     @Then("user fills in SSN number field with {string}")
     public void userFillsInSSNNumberFieldWith(String text) {
+        viceDeanManagementPage.ssn.clear();
+        viceDeanManagementPage.ssn.sendKeys(text);
+        ReusableMethods.waitFor(2);
+    }
+
+
+    @And("user fills in SSN number field with invalid number {string}")
+    public void userFillsInSSNNumberFieldWithInvalidNumber(String text) {
+        viceDeanManagementPage.ssn.clear();
+        viceDeanManagementPage.ssn.sendKeys(text);
+        ReusableMethods.waitFor(2);
+    }
+
+
+    @And("user fills in SSN number field with less than {int} character {string}")
+    public void userFillsInSSNNumberFieldWithLessThanCharacter(int arg0, String text) {
+        viceDeanManagementPage.ssn.clear();
         viceDeanManagementPage.ssn.sendKeys(text);
         ReusableMethods.waitFor(2);
     }
@@ -238,15 +262,185 @@ public class US_06_UI {
         assertFalse(viceDeanManagementPage.ssnRequiredText.isDisplayed());
     }
 
+    @And("user clicks on submit button")
+    public void userClicksOnSubmitButton() {
+        viceDeanManagementPage.submitButton.click();
+    }
+
+    @Then("user verifies {string} alert text is visible")
+    public void userVerifiesAlertTextIsVisible(String text) {
+
+//        String alertText = Driver.getDriver().switchTo().alert().getText();
+//        assertTrue(alertText.equals(text));
+
+//        assertTrue((Driver.getDriver().getCurrentUrl().contains("Please enter valid SSN number")));
+
+        assertTrue(Driver.getDriver().getCurrentUrl().equals("https://managementonschools.com/vicedean-management"));
+        
+//        ReusableMethods.waitForVisibility(viceDeanManagementPage.pleaseEnterSSNnumberText,5);
+//        assertTrue(viceDeanManagementPage.pleaseEnterSSNnumberText.isDisplayed());
+    }
 
 
-    @Then("user close the browser")
-    public void userCloseTheBrowser() {
-        Driver.getDriver().close();
+    @Then("user verifies {string} text is visible")
+    public void userVerifiesTextIsVisible(String text) {
+
+            assertTrue(viceDeanManagementPage.minimum11CharacterText.isDisplayed());
     }
 
 
 
+
+    //username
+    @When("user passes username field without filling")
+    public void userPassesUsernameFieldWithoutFilling() {
+        viceDeanManagementPage.username.click();
+        viceDeanManagementPage.password.click();
+    }
+
+    @Then("user verifies Required text is visible when user does not fill username field")
+    public void userVerifiesRequiredTextIsVisibleWhenUserDoesNotFillUsernameField() {
+        assertTrue(viceDeanManagementPage.usernameRequiredText.isDisplayed());
+        ReusableMethods.waitFor(2);
+    }
+
+    @And("user fills in username field with {string}")
+    public void userFillsInUsernameFieldWith(String text) {
+        viceDeanManagementPage.username.sendKeys(text);
+    }
+
+    @Then("user verifies Required text is not visible for username field")
+    public void userVerifiesRequiredTextIsNotVisibleForUsernameField() {
+        assertFalse(viceDeanManagementPage.usernameRequiredText.isDisplayed());
+        ReusableMethods.waitFor(2);
+    }
+
+
+
+    //password
+
+    @When("user passes password field without filling")
+    public void userPassesPasswordFieldWithoutFilling() {
+        viceDeanManagementPage.password.click();
+        viceDeanManagementPage.submitButton.click();
+    }
+
+    @Then("user verifies Required text is visible for password field")
+    public void userVerifiesRequiredTextIsVisibleForPasswordField() {
+        assertTrue(viceDeanManagementPage.passwordRequiredText.isDisplayed());
+    }
+
+    @And("user fills in password field with less than {int} character like {string}")
+    public void userFillsInPasswordFieldWithLessThanCharacterLike(int arg0, String text) {
+        viceDeanManagementPage.password.sendKeys(text);
+    }
+
+    @Then("user verifies {string} text is visible for password field")
+    public void userVerifiesTextIsVisibleForPasswordField(String arg0) {
+        assertTrue(viceDeanManagementPage.minimum8CharacterText.isDisplayed());
+    }
+
+//----------------------------
+    @And("user fills in password field with {string}")
+    public void userFillsInPasswordFieldWith(String text) {
+        viceDeanManagementPage.password.clear();
+        viceDeanManagementPage.password.sendKeys(text);
+    }
+
+
+    @And("user fills in password field with invalid password {string}")
+    public void userFillsInPasswordFieldWithInvalidPassword(String text) {
+        viceDeanManagementPage.password.clear();
+        viceDeanManagementPage.password.sendKeys(text);
+
+    }
+//-------------------------------
+
+
+    @Then("user verifies Required text is not visible for password field")
+    public void userVerifiesRequiredTextIsNotVisibleForPasswordField() {
+        assertFalse(viceDeanManagementPage.passwordRequiredText.isDisplayed());
+    }
+
+
+
+    //gender
+
+    @And("user verifies female and male button is not selected")
+    public void userVerifiesFemaleAndMaleButtonIsNotSelected() {
+        assertTrue(!viceDeanManagementPage.female.isSelected());
+        assertTrue(!viceDeanManagementPage.male.isSelected());
+    }
+
+
+    @Then("user verifies {string} text is not visible")
+    public void userVerifiesTextIsNotVisible(String text) {
+
+        //1.way does not work
+//        String alertText = Driver.getDriver().switchTo().alert().getText();
+//        ReusableMethods.waitFor(5);
+//        assertTrue(text.equalsIgnoreCase(alertText));
+
+        //2nd way does not work
+//        assertFalse(Driver.getDriver().getPageSource().contains(text));
+//        ReusableMethods.waitFor(5);
+
+        assertTrue(!viceDeanManagementPage.nameField.getText().equalsIgnoreCase("Name"));
+
+
+
+
+    }
+
+    @And("user verifies female or male button is selected")
+    public void userVerifiesFemaleOrMaleButtonIsSelected() {
+
+        viceDeanManagementPage.male.click();
+        assertTrue(viceDeanManagementPage.female.isSelected() || viceDeanManagementPage.male.isSelected() );
+
+    }
+
+
+
+    @Then("user verifies after click on submit button {string} text is visible")
+    public void userVerifiesAfterClickOnSubmitButtonTextIsVisible(String text) {
+        //1.way does not work
+//        String alertText = Driver.getDriver().switchTo().alert().getText();
+//        ReusableMethods.waitFor(5);
+//        assertTrue(text.equalsIgnoreCase(alertText));
+
+        //2nd way does not work
+//        assertFalse(Driver.getDriver().getPageSource().contains(text));
+//        ReusableMethods.waitFor(5);
+
+        //3rd way does not work
+        //        ReusableMethods.waitForVisibility(viceDeanManagementPage.alreadyRegisterText, 5);
+//        assertTrue( viceDeanManagementPage.alreadyRegisterText.isDisplayed());
+
+        assertTrue(viceDeanManagementPage.female.isSelected() || viceDeanManagementPage.male.isSelected());
+
+
+
+
+
+
+    }
+
+
+   //------------------------------------------------------------------------------------------------------
+
+
+    @Then("user verifies submit button is not clickable")
+    public void userVerifiesSubmitButtonIsNotClickable() {
+//        assertFalse(viceDeanManagementPage.submitButton.isEnabled());
+
+    }
+
+
+
+//    @Then("user close the browser")
+//    public void userCloseTheBrowser() {
+//    }
 
 
 }

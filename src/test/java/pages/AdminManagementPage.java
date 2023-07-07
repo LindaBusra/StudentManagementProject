@@ -14,7 +14,7 @@ public class AdminManagementPage {
     @FindBy(xpath = "//*[.='Menu']")
     public WebElement menuIcon;
 
-    @FindBy(xpath = "//*[.='Vice Dean Management']")
+    @FindBy(xpath = "//a[.='Vice Dean Management']")
     public WebElement viceDeanManagementButton;
 
 

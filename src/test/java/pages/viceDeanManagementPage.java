@@ -5,9 +5,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
-public class viceDeanManagementPage {
+public class ViceDeanManagementPage {
 
-    public viceDeanManagementPage() {
+    public ViceDeanManagementPage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
@@ -40,6 +40,9 @@ public class viceDeanManagementPage {
     @FindBy(id = "username")
     public WebElement username;
 
+    @FindBy(id = "password")
+    public WebElement password;
+
 
 
 
@@ -62,6 +65,30 @@ public class viceDeanManagementPage {
 
     @FindBy(xpath = "(//div[@class='invalid-feedback'])[6]")
     public WebElement ssnRequiredText;
+
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[7]")
+    public WebElement usernameRequiredText;
+
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[8]")
+    public WebElement passwordRequiredText;
+
+    @FindBy(xpath = "//*[.='Please enter valid SSN number']")
+    public WebElement pleaseEnterSSNnumberText;
+
+    @FindBy(xpath = "//button[.='Submit']")
+    public WebElement submitButton;
+
+    @FindBy(xpath = "//*[.='Minimum 11 character (XXX-XX-XXXX)']")
+    public WebElement minimum11CharacterText;
+
+    @FindBy(xpath = "//*[.='Minimum 8 character']")
+    public WebElement minimum8CharacterText;
+
+    @FindBy(xpath = "//*[.='Vice dean Saved']")
+    public WebElement viceDeanSavedText;
+
+    @FindBy(xpath = "//*[contains(text(),’already register’)]")
+    public WebElement alreadyRegisterText;
 
 
 
