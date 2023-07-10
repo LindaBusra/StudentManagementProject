@@ -3,9 +3,16 @@ package stepdefinitions.ui;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import pages.*;
+import utilities.ConfigReader;
 import utilities.Driver;
+import utilities.JdbcUtils;
 import utilities.ReusableMethods;
+
+import java.sql.*;
+import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -16,13 +23,22 @@ public class US_06_UI {
     AdminManagementPage adminManagementPage = new AdminManagementPage();
     ViceDeanManagementPage viceDeanManagementPage = new ViceDeanManagementPage();
 
+    Faker faker;
+    String firstname;
+    String lastname;
+    String username;
+    String password;
 
 
+
+
+//        loginPage.usernameInput.sendKeys(ConfigReader.getProperty(username));
+//        loginPage.passwordInput.sendKeys(ConfigReader.getProperty(password));
 
 
     @Given("user is on the home page :  {string}")
-    public void userIsOnTheHomePage(String url) {
-        Driver.getDriver().get(url);
+    public void userIsOnTheHomePage(String login_url) {
+        Driver.getDriver().get(ConfigReader.getProperty(login_url));
     }
 
 
@@ -34,14 +50,14 @@ public class US_06_UI {
 
 
     @Then("user enters valid username {string} in username input")
-    public void user_enters_valid_username_in_username_input(String username) {
-        loginPage.userName.sendKeys(username);
+    public void user_enters_valid_username_in_username_input(String myDean_valid_username) {
+        loginPage.userName.sendKeys(ConfigReader.getProperty(myDean_valid_username));
         ReusableMethods.waitFor(2);
     }
 
     @Then("user enters valid password {string} in password input")
-    public void user_enters_valid_password_in_password_input(String password) {
-        loginPage.password.sendKeys(password);
+    public void user_enters_valid_password_in_password_input(String myDean_valid_password) {
+        loginPage.password.sendKeys(ConfigReader.getProperty(myDean_valid_password));
         ReusableMethods.waitFor(2);
     }
 
@@ -87,8 +103,10 @@ public class US_06_UI {
 
 
     @Then("user fills in Name field with {string}")
-    public void userFillsInNameFieldWith(String text) {
-        viceDeanManagementPage.nameField.sendKeys(text);
+    public void userFillsInNameFieldWith(String name) {
+        faker = new Faker();
+        firstname = faker.name().firstName();
+        viceDeanManagementPage.nameField.sendKeys(firstname);
         ReusableMethods.waitFor(2);
     }
 
@@ -97,6 +115,9 @@ public class US_06_UI {
         assertFalse(viceDeanManagementPage.nameRequiredText.isDisplayed());
         ReusableMethods.waitFor(2);
     }
+
+
+
 
 
 
@@ -115,8 +136,9 @@ public class US_06_UI {
     }
 
     @Then("user fills in Surname field with {string}")
-    public void userFillsInSurnameFieldWith(String text) {
-        viceDeanManagementPage.surnameField.sendKeys(text);
+    public void userFillsInSurnameFieldWith(String surname) {
+        lastname=faker.name().lastName();
+        viceDeanManagementPage.surnameField.sendKeys(lastname);
         ReusableMethods.waitFor(2);
     }
 
@@ -125,6 +147,9 @@ public class US_06_UI {
         assertFalse(viceDeanManagementPage.surnameRequiredText.isDisplayed());
         ReusableMethods.waitFor(2);
     }
+
+
+
 
 
 
@@ -145,8 +170,9 @@ public class US_06_UI {
     }
 
     @Then("user fills in Birth Place field with {string}")
-    public void userFillsInBirthPlaceFieldWith(String text) {
-        viceDeanManagementPage.birthPlaceField.sendKeys(text);
+    public void userFillsInBirthPlaceFieldWith(String birthplace) {
+
+        viceDeanManagementPage.birthPlaceField.sendKeys(ConfigReader.getProperty(birthplace));
         ReusableMethods.waitFor(2);
     }
 
@@ -177,9 +203,9 @@ public class US_06_UI {
     }
 
     @Then("user fills in Date Of Birth field with {string}")
-    public void userFillsInDateOfBirthFieldWith(String text) {
+    public void userFillsInDateOfBirthFieldWith(String dateofbirth) {
 
-        viceDeanManagementPage.birthDay.sendKeys(text);
+        viceDeanManagementPage.birthDay.sendKeys(ConfigReader.getProperty(dateofbirth));
         ReusableMethods.waitFor(2);
 
     }
@@ -189,6 +215,10 @@ public class US_06_UI {
         assertFalse(viceDeanManagementPage.birthDayRequiredText.isDisplayed());
         ReusableMethods.waitFor(2);
     }
+
+
+
+
 
 
     //Phone Number
@@ -208,7 +238,17 @@ public class US_06_UI {
 
     @Then("user fills in Phone number field with {string}")
     public void userFillsInPhoneNumberFieldWith(String text) {
-        viceDeanManagementPage.phoneNumber.sendKeys(text);
+
+        Random random = new Random();
+
+        int n1=random.nextInt(1000);
+        int n2=random.nextInt(1000);
+        int n3=random.nextInt(1000);
+        int n4=random.nextInt(1000);
+        int n5=random.nextInt(1000);
+        String str=""+n1+n2+n3+n4+n5;
+        String phoneNumber = str.substring(0,3)+"-"+str.substring(3,6)+"-"+str.substring(5,9);
+        viceDeanManagementPage.phoneNumber.sendKeys(phoneNumber);
     }
 
     @Then("user verifies Required text is not visible for Phone number field")
@@ -216,6 +256,10 @@ public class US_06_UI {
         assertFalse(viceDeanManagementPage.phoneNumberRequiredText.isDisplayed());
         ReusableMethods.waitFor(2);
     }
+
+
+
+
 
 
 
@@ -236,8 +280,9 @@ public class US_06_UI {
 
     @Then("user fills in SSN number field with {string}")
     public void userFillsInSSNNumberFieldWith(String text) {
+
         viceDeanManagementPage.ssn.clear();
-        viceDeanManagementPage.ssn.sendKeys(text);
+        viceDeanManagementPage.ssn.sendKeys(faker.idNumber().ssnValid());
         ReusableMethods.waitFor(2);
     }
 
@@ -291,6 +336,9 @@ public class US_06_UI {
 
 
 
+
+
+
     //username
     @When("user passes username field without filling")
     public void userPassesUsernameFieldWithoutFilling() {
@@ -306,7 +354,8 @@ public class US_06_UI {
 
     @And("user fills in username field with {string}")
     public void userFillsInUsernameFieldWith(String text) {
-        viceDeanManagementPage.username.sendKeys(text);
+        username = firstname+lastname;
+        viceDeanManagementPage.username.sendKeys(username);
     }
 
     @Then("user verifies Required text is not visible for username field")
@@ -314,6 +363,9 @@ public class US_06_UI {
         assertFalse(viceDeanManagementPage.usernameRequiredText.isDisplayed());
         ReusableMethods.waitFor(2);
     }
+
+
+
 
 
 
@@ -340,11 +392,12 @@ public class US_06_UI {
         assertTrue(viceDeanManagementPage.minimum8CharacterText.isDisplayed());
     }
 
-//----------------------------
+
     @And("user fills in password field with {string}")
-    public void userFillsInPasswordFieldWith(String text) {
+    public void userFillsInPasswordFieldWith(String password) {
+        password= firstname.toUpperCase().substring(0,2) + lastname.toLowerCase().substring(0,4) + "12345.";
         viceDeanManagementPage.password.clear();
-        viceDeanManagementPage.password.sendKeys(text);
+        viceDeanManagementPage.password.sendKeys(password);
     }
 
 
@@ -354,13 +407,16 @@ public class US_06_UI {
         viceDeanManagementPage.password.sendKeys(text);
 
     }
-//-------------------------------
 
 
     @Then("user verifies Required text is not visible for password field")
     public void userVerifiesRequiredTextIsNotVisibleForPasswordField() {
         assertFalse(viceDeanManagementPage.passwordRequiredText.isDisplayed());
     }
+
+
+
+
 
 
 
@@ -386,11 +442,8 @@ public class US_06_UI {
 //        ReusableMethods.waitFor(5);
 
         assertTrue(!viceDeanManagementPage.nameField.getText().equalsIgnoreCase("Name"));
-
-
-
-
     }
+
 
     @And("user verifies female or male button is selected")
     public void userVerifiesFemaleOrMaleButtonIsSelected() {
@@ -419,28 +472,45 @@ public class US_06_UI {
 
         assertTrue(viceDeanManagementPage.female.isSelected() || viceDeanManagementPage.male.isSelected());
 
-
-
-
-
-
-    }
-
-
-   //------------------------------------------------------------------------------------------------------
-
-
-    @Then("user verifies submit button is not clickable")
-    public void userVerifiesSubmitButtonIsNotClickable() {
-//        assertFalse(viceDeanManagementPage.submitButton.isEnabled());
-
     }
 
 
 
-//    @Then("user close the browser")
-//    public void userCloseTheBrowser() {
-//    }
+        @Then("user close the browser")
+    public void userCloseTheBrowser() {
+    }
+
+
+
+   //==================================================================================================================================
+
+
+
+    //test for database
+    @Given("user connects to the database")
+    public void user_connects_to_the_database() throws SQLException, ClassNotFoundException {
+//        JdbcUtils.connectToDatabase("managementonschools.com", "school_management", "select_user", "43w5ijfso");
+//        JdbcUtils.createStatement();
+
+    }
+    @Given("user gets the column {string} from table {string}" )
+    public void user_gets_the_column_from_table(String column, String table) {
+        String query = "SELECT "+column+" FROM "+table+" Order By Id";
+        JdbcUtils.executeQuery(query);
+    }
+
+    @Then("verify table {string} and column {string} contains data {string}")
+    public void verify_table_and_column_contains_data(String table, String column, String userName) {
+        String query ="SELECT "+column+" FROM "+table;
+        List<Object> columnData = JdbcUtils.getColumnData(query,column);
+        System.out.println(columnData);
+        Assert.assertTrue(columnData.contains(username));
+    }
+    @Then("close the connection")
+    public void close_the_connection() {
+        JdbcUtils.closeConnectionAndStatement();
+    }
+
 
 
 }
