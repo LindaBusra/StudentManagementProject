@@ -261,7 +261,7 @@ public class ReusableMethods {
         String splittedToken[]= unFixedToken.split(" ");
         String token = splittedToken[1];
 
-        return token;
+        return unFixedToken;
     }
 
 

@@ -12,4 +12,6 @@ Feature: US03
     And User enters message into message field
     And User clicks the Send Message button
     Then User verify success message is displayed
+    And User sends get request from API
+    Then User verifies emails
     Then user close the browser
