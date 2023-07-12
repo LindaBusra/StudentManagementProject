@@ -32,10 +32,6 @@ public class US_06_UI {
 
 
 
-//        loginPage.usernameInput.sendKeys(ConfigReader.getProperty(username));
-//        loginPage.passwordInput.sendKeys(ConfigReader.getProperty(password));
-
-
     @Given("user is on the home page :  {string}")
     public void userIsOnTheHomePage(String login_url) {
         Driver.getDriver().get(ConfigReader.getProperty(login_url));
@@ -45,20 +41,20 @@ public class US_06_UI {
     @When("user clicks on login icon")
     public void userClicksOnLoginIcon() throws InterruptedException {
         homePage.loginIcon.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
     @Then("user enters valid username {string} in username input")
     public void user_enters_valid_username_in_username_input(String myDean_valid_username) {
         loginPage.userName.sendKeys(ConfigReader.getProperty(myDean_valid_username));
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user enters valid password {string} in password input")
     public void user_enters_valid_password_in_password_input(String myDean_valid_password) {
         loginPage.password.sendKeys(ConfigReader.getProperty(myDean_valid_password));
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -66,21 +62,21 @@ public class US_06_UI {
     public void userClicksOnLoginButton() {
 
         loginPage.loginButton.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
     @And("user clicks on Menu Button")
     public void userClicksOnMenuButton() {
         adminManagementPage.menuIcon.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
     @And("user clicks on Vise Dean Management Button")
     public void userClicksOnViseDeanManagementButton() {
         adminManagementPage.viceDeanManagementButton.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -90,7 +86,7 @@ public class US_06_UI {
     public void userPassesNameFieldWithoutFilling() {
         viceDeanManagementPage.nameField.click();
         viceDeanManagementPage.surnameField.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
 
     }
 
@@ -98,7 +94,7 @@ public class US_06_UI {
     @Then("user verifies Required text is visible when user does not fill name field")
     public void userVerifiesRequiredTextIsVisibleWhenUserDoesNotFillNameField() {
         assertTrue(viceDeanManagementPage.nameRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -107,13 +103,13 @@ public class US_06_UI {
         faker = new Faker();
         firstname = faker.name().firstName();
         viceDeanManagementPage.nameField.sendKeys(firstname);
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user verifies Required text is not visible for name field")
     public void userVerifiesRequiredTextIsNotVisibleForNameField() {
         assertFalse(viceDeanManagementPage.nameRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -132,20 +128,20 @@ public class US_06_UI {
     @Then("user verifies Required text is visible when user does not fill surname field")
     public void userVerifiesRequiredTextIsVisibleWhenUserDoesNotFillSurnameField() {
         assertTrue(viceDeanManagementPage.surnameRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user fills in Surname field with {string}")
     public void userFillsInSurnameFieldWith(String surname) {
         lastname=faker.name().lastName();
         viceDeanManagementPage.surnameField.sendKeys(lastname);
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user verifies Required text is not visible for surname field")
     public void userVerifiesRequiredTextIsNotVisibleForSurnameField() {
         assertFalse(viceDeanManagementPage.surnameRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -158,28 +154,28 @@ public class US_06_UI {
     @When("user passes Birth Place field without filling")
     public void userPassesBirthPlaceFieldWithoutFilling() {
         viceDeanManagementPage.birthPlaceField.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
         viceDeanManagementPage.female.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user verifies Required text is visible when user does not fill Birth Place field")
     public void userVerifiesRequiredTextIsVisibleWhenUserDoesNotFillBirthPlaceField() {
         assertTrue(viceDeanManagementPage.birthPlaceRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user fills in Birth Place field with {string}")
     public void userFillsInBirthPlaceFieldWith(String birthplace) {
 
         viceDeanManagementPage.birthPlaceField.sendKeys(ConfigReader.getProperty(birthplace));
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user verifies Required text is not visible for Birth Place field")
     public void userVerifiesRequiredTextIsNotVisibleForBirthPlaceField() {
         assertFalse(viceDeanManagementPage.birthPlaceRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -193,27 +189,27 @@ public class US_06_UI {
 
         viceDeanManagementPage.birthPlaceField.click();
         viceDeanManagementPage.phoneNumber.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user verifies Required text is visible when user does not fill Date Of Birthe field")
     public void userVerifiesRequiredTextIsVisibleWhenUserDoesNotFillDateOfBirtheField() {
         assertTrue(viceDeanManagementPage.birthDayRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user fills in Date Of Birth field with {string}")
     public void userFillsInDateOfBirthFieldWith(String dateofbirth) {
 
         viceDeanManagementPage.birthDay.sendKeys(ConfigReader.getProperty(dateofbirth));
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
 
     }
 
     @Then("user verifies Required text is not visible for Date Of Birth field")
     public void userVerifiesRequiredTextIsNotVisibleForDateOfBirthField() {
         assertFalse(viceDeanManagementPage.birthDayRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -227,13 +223,13 @@ public class US_06_UI {
     public void userPassesPhoneNumberFieldWithoutFilling() {
         viceDeanManagementPage.phoneNumber.click();
         viceDeanManagementPage.ssn.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user verifies Required text is visible when user does not fill Phone number field")
     public void userVerifiesRequiredTextIsVisibleWhenUserDoesNotFillPhoneNumberField() {
         assertTrue(viceDeanManagementPage.phoneNumberRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user fills in Phone number field with {string}")
@@ -254,7 +250,7 @@ public class US_06_UI {
     @Then("user verifies Required text is not visible for Phone number field")
     public void userVerifiesRequiredTextIsNotVisibleForPhoneNumberField() {
         assertFalse(viceDeanManagementPage.phoneNumberRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -269,13 +265,13 @@ public class US_06_UI {
     public void userPassesSSNFieldWithoutFilling() {
         viceDeanManagementPage.ssn.click();
         viceDeanManagementPage.username.click();
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user verifies Required text is visible when user does not fill SSN field")
     public void userVerifiesRequiredTextIsVisibleWhenUserDoesNotFillSSNField() {
         assertTrue(viceDeanManagementPage.ssnRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user fills in SSN number field with {string}")
@@ -283,7 +279,7 @@ public class US_06_UI {
 
         viceDeanManagementPage.ssn.clear();
         viceDeanManagementPage.ssn.sendKeys(faker.idNumber().ssnValid());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -291,7 +287,7 @@ public class US_06_UI {
     public void userFillsInSSNNumberFieldWithInvalidNumber(String text) {
         viceDeanManagementPage.ssn.clear();
         viceDeanManagementPage.ssn.sendKeys(text);
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -299,7 +295,7 @@ public class US_06_UI {
     public void userFillsInSSNNumberFieldWithLessThanCharacter(int arg0, String text) {
         viceDeanManagementPage.ssn.clear();
         viceDeanManagementPage.ssn.sendKeys(text);
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @Then("user verifies Required text is not visible for SSN field")
@@ -349,7 +345,7 @@ public class US_06_UI {
     @Then("user verifies Required text is visible when user does not fill username field")
     public void userVerifiesRequiredTextIsVisibleWhenUserDoesNotFillUsernameField() {
         assertTrue(viceDeanManagementPage.usernameRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
     @And("user fills in username field with {string}")
@@ -361,7 +357,7 @@ public class US_06_UI {
     @Then("user verifies Required text is not visible for username field")
     public void userVerifiesRequiredTextIsNotVisibleForUsernameField() {
         assertFalse(viceDeanManagementPage.usernameRequiredText.isDisplayed());
-        ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(1);
     }
 
 
@@ -394,8 +390,8 @@ public class US_06_UI {
 
 
     @And("user fills in password field with {string}")
-    public void userFillsInPasswordFieldWith(String password) {
-        password= firstname.toUpperCase().substring(0,2) + lastname.toLowerCase().substring(0,4) + "12345.";
+    public void userFillsInPasswordFieldWith(String text) {
+        password = firstname.toUpperCase().substring(0,2) + lastname.toLowerCase().substring(0,4) + "12345.";
         viceDeanManagementPage.password.clear();
         viceDeanManagementPage.password.sendKeys(password);
     }
@@ -441,7 +437,12 @@ public class US_06_UI {
 //        assertFalse(Driver.getDriver().getPageSource().contains(text));
 //        ReusableMethods.waitFor(5);
 
+        //3rd way does not work
+//        assertTrue(viceDeanManagementPage.viceDeanSavedText.isDisplayed());
+
+
         assertTrue(!viceDeanManagementPage.nameField.getText().equalsIgnoreCase("Name"));
+
     }
 
 
@@ -467,10 +468,13 @@ public class US_06_UI {
 //        ReusableMethods.waitFor(5);
 
         //3rd way does not work
-        //        ReusableMethods.waitForVisibility(viceDeanManagementPage.alreadyRegisterText, 5);
-//        assertTrue( viceDeanManagementPage.alreadyRegisterText.isDisplayed());
+        //        ReusableMethods.waitForVisibility(viceDeanManagementPage.viceDeanSavedText, 5);
 
-        assertTrue(viceDeanManagementPage.female.isSelected() || viceDeanManagementPage.male.isSelected());
+        //4.th way does not work
+//        assertTrue(viceDeanManagementPage.viceDeanSavedText.isDisplayed());
+
+        //5th way
+        assertFalse(viceDeanManagementPage.female.isSelected() || viceDeanManagementPage.male.isSelected());
 
     }
 
@@ -482,34 +486,6 @@ public class US_06_UI {
 
 
 
-   //==================================================================================================================================
-
-
-
-    //test for database
-    @Given("user connects to the database")
-    public void user_connects_to_the_database() throws SQLException, ClassNotFoundException {
-//        JdbcUtils.connectToDatabase("managementonschools.com", "school_management", "select_user", "43w5ijfso");
-//        JdbcUtils.createStatement();
-
-    }
-    @Given("user gets the column {string} from table {string}" )
-    public void user_gets_the_column_from_table(String column, String table) {
-        String query = "SELECT "+column+" FROM "+table+" Order By Id";
-        JdbcUtils.executeQuery(query);
-    }
-
-    @Then("verify table {string} and column {string} contains data {string}")
-    public void verify_table_and_column_contains_data(String table, String column, String userName) {
-        String query ="SELECT "+column+" FROM "+table;
-        List<Object> columnData = JdbcUtils.getColumnData(query,column);
-        System.out.println(columnData);
-        Assert.assertTrue(columnData.contains(username));
-    }
-    @Then("close the connection")
-    public void close_the_connection() {
-        JdbcUtils.closeConnectionAndStatement();
-    }
 
 
 

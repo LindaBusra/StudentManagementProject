@@ -179,7 +179,7 @@ Feature: US_06 Deans should be able to create a Vice Dean account.
     Then user verifies Required text is visible for password field
     And user fills in password field with less than 8 character like "77455"
     Then user verifies "Minimum 8 character" text is visible for password field
-    And user fills in password field with invalid password "12345678"
+    And user fills in password field with invalid password "abcdefgh"
     And user clicks on submit button
     Then user verifies "Vice dean Saved" text is not visible
     And user fills in password field with "password"
@@ -188,12 +188,7 @@ Feature: US_06 Deans should be able to create a Vice Dean account.
     Then user close the browser
 
 
-  @US001_TC11_DB
-  Scenario: TC11_DB_registration_DataBase
-    Given user connects to the database
-    And user gets the column "username" from table "???"
-    Then verify table "???" and column "username" contains data "username"
-    And close the connection
+
 
 
 

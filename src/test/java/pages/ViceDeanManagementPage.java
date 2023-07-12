@@ -84,7 +84,10 @@ public class ViceDeanManagementPage {
     @FindBy(xpath = "//*[.='Minimum 8 character']")
     public WebElement minimum8CharacterText;
 
-    @FindBy(xpath = "//*[.='Vice dean Saved']")
+//    @FindBy(xpath = "//*[.='Vice dean Saved']")
+//    public WebElement viceDeanSavedText;
+
+    @FindBy(xpath = "//*[contains(text(),’Vice dean Saved’)]")
     public WebElement viceDeanSavedText;
 
     @FindBy(xpath = "//*[contains(text(),’already register’)]")

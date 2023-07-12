@@ -14,6 +14,8 @@ public class StudentManagementBaseUrlWithoutAnnotation {
 
         spec = new RequestSpecBuilder().setBaseUri("https://managementonschools.com/").build();
 
+
+
     }
 
 
