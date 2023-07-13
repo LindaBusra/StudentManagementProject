@@ -264,30 +264,4 @@ public class ReusableMethods {
         return unFixedToken;
     }
 
-
-    public static void clickWithJS(WebElement element) {
-        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", element);
-    }
-
-    public static String getToken() {
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("password", "12345678");
-        hashMap.put("username", "AdminBusra");
-
-        Response response = given().
-                contentType(ContentType.JSON).
-                body(hashMap).
-                when().post("https://managementonschools.com/app/auth/login");
-
-        response.prettyPrint();
-        JsonPath jsonPath = response.jsonPath();
-        String unFixedToken = jsonPath.getString("token");
-        String token =unFixedToken.substring(7);
-
-        return token;
-    }
-
-
-
 }

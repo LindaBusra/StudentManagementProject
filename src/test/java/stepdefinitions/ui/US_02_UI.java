@@ -37,6 +37,7 @@ public class US_02_UI {
 //        guestUserPage.guestUserButton.click();                                            //it does not work
 
         ReusableMethods.clickWithJS(adminManagementPage.guestUserButton);                   //it does not work
+
         ReusableMethods.waitFor(2);
     }
 
