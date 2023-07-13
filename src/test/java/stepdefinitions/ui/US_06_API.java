@@ -1,6 +1,7 @@
 package stepdefinitions.ui;
 
 
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,6 +17,7 @@ import static utilities.AdminAuthentication.generateTokenForAdmin;
 
 import pojos.ViceDeanResponsePojo;
 
+import pojos.contactPojos.Root;
 import utilities.JsonUtils;
 import utilities.ReusableMethods;
 
@@ -27,6 +29,7 @@ public class US_06_API {
     ViceDeanResponsePojo actualData;
     JsonPath json;
     int userId;
+    Faker faker = new Faker();
 
     //Request URL for post
     //https://managementonschools.com/app/vicedean/save
@@ -34,8 +37,14 @@ public class US_06_API {
 
     @And("User sets the expected data")
     public void userSetsTheExpectedData() {
-        expectedData = new ViceDeanPostPojo("2018-02-05","Norway", "MALE", "yerten", "Merje1234.",
-                "358-128-8954", "759-18-4863", "Ringen", "yertenringen");
+        String name = faker.name().firstName();
+        String lastname = faker.name().lastName();
+        String username = name+lastname;
+        String password=name.toUpperCase().substring(0,1)+lastname.toLowerCase().substring(0,5)+"1234.";
+        String phoneNumber = faker.phoneNumber().cellPhone();
+        String ssnNumber = faker.idNumber().ssnValid();
+        expectedData = new ViceDeanPostPojo("2018-02-05","Norway", "MALE", name, password,
+                phoneNumber, ssnNumber, lastname, username);
 
       }
 
@@ -103,6 +112,9 @@ public class US_06_API {
         Assert.assertEquals(expectedData.getSsn(), actualData.getObject().getSsn());
         Assert.assertEquals(expectedData.getSurname(), actualData.getObject().getSurname());
         Assert.assertEquals(expectedData.getUsername(), actualData.getObject().getUsername());
+
+
+
    }
 
 
