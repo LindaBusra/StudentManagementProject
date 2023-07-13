@@ -25,7 +25,7 @@ public class US_02_UI {
     LoginPage loginPage = new LoginPage();
     AdminManagementPage adminManagementPage = new AdminManagementPage();
     GuestUserPage guestUserPage = new GuestUserPage();
-    ReusableMethods reusableMethods = new ReusableMethods();
+
 
 
 
@@ -36,7 +36,7 @@ public class US_02_UI {
 
 //        guestUserPage.guestUserButton.click();                                            //it does not work
 
-        reusableMethods.clickWithJS(adminManagementPage.guestUserButton);                   //it does not work
+        ReusableMethods.clickWithJS(adminManagementPage.guestUserButton);                   //it does not work
         ReusableMethods.waitFor(2);
     }
 
