@@ -17,6 +17,7 @@ import static utilities.AdminAuthentication.generateTokenForAdmin;
 import pojos.ViceDeanResponsePojo;
 
 import utilities.JsonUtils;
+import utilities.ReusableMethods;
 
 public class US_06_API {
 
@@ -25,29 +26,27 @@ public class US_06_API {
     ViceDeanPostPojo expectedData;
     ViceDeanResponsePojo actualData;
     JsonPath json;
+    int userId;
 
-    //Request URL
+    //Request URL for post
     //https://managementonschools.com/app/vicedean/save
-    @Given("User adds the necessary path params to the base url")
-    public void userAddsTheNecessaryPathParamsToTheBaseUrl() {
 
-        spec.pathParams("first", "app", "second", "vicedean", "third", "save");
-    }
 
     @And("User sets the expected data")
     public void userSetsTheExpectedData() {
-        expectedData = new ViceDeanPostPojo("2000-01-01","Norway", "MALE", "Terje", "Terje1234.",
-                "334-789-8954", "789-85-4863", "Ringen", "terjeringen");
+        expectedData = new ViceDeanPostPojo("2018-02-05","Norway", "MALE", "yerten", "Merje1234.",
+                "358-128-8954", "759-18-4863", "Ringen", "yertenringen");
 
       }
 
     @And("User sends the post request and gets the response")
     public void userSendsThePostRequestAndGetsTheResponse() {
-        response = given().spec(spec)
-                .headers("Authorization", "Bearer "+generateTokenForAdmin())
+        response = given()
+                .header("Authorization", "Bearer "+generateTokenForAdmin())
                 .contentType(ContentType.JSON).body(expectedData)
                 .when()
-                .post("/{first}/{second}/{third}");
+//                .post("/{first}/{second}/{third}");
+                .post("https://managementonschools.com/app/vicedean/save");
         response.prettyPrint();
     }
 
@@ -72,18 +71,15 @@ public class US_06_API {
     }
 
 
-    //Request URL
+    //Request URL for get
     //https://managementonschools.com/app/vicedean/getViceDeanById/21
 
-    @Given("User adds the necessary path params to the base url for Get Request")
-    public void userAddsTheNecessaryPathParamsToTheBaseUrlForGetRequest() {
-        int userId = json.getInt("userId");   //from response
-        spec.pathParams("first", "app", "second", "vicedean", "third", "getViceDeanById", "fourth", userId);
-    }
 
     @And("User sends the Get request and gets the response")
     public void userSendsTheGetRequestAndGetsTheResponse() {
-        response2 = given().spec(spec).headers("Authorization", "Bearer "+generateTokenForAdmin()).when().get("/{first}/{second}/{third}/{fourth}");
+        userId = json.getInt("userId");   //from response
+        response2 = given().header("Authorization", "Bearer "+generateTokenForAdmin()).when()
+                .get("https://managementonschools.com/app/vicedean/getViceDeanById/" + userId);
         response2.prettyPrint();
     }
 
@@ -95,7 +91,8 @@ public class US_06_API {
 
     @And("Do assertion according to Get request")
     public void doAssertionAccordingToGetRequest() {
-        actualData = JsonUtils.convertJsonToJava(response2.asString(), ViceDeanResponsePojo.class);
+//        actualData = JsonUtils.convertJsonToJava(response2.asString(), ViceDeanResponsePojo.class);
+        actualData = response2.as(ViceDeanResponsePojo.class);
         Assert.assertEquals("100 CONTINUE", actualData.getHttpStatus());
         Assert.assertEquals("string", actualData.getMessage());
         Assert.assertEquals(expectedData.getBirthDay(), actualData.getObject().getBirthDay());

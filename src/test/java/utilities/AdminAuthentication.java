@@ -28,10 +28,10 @@ public class AdminAuthentication {
     }
 
 
-//    public static void main(String[] args) {
-//
-//        System.out.println(generateTokenForAdmin());
-//    }
+    public static void main(String[] args) {
+
+        System.out.println(generateTokenForAdmin());
+    }
 }
 
 

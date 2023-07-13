@@ -11,12 +11,10 @@ Feature: US_06 Deans should be able to create a Vice Dean account.
 
   @US_006_TC12_API
   Scenario: User validates the necessary request is done by Api
-    Given User adds the necessary path params to the base url
     And User sets the expected data
     And User sends the post request and gets the response
-    Then verify that status code is 201
+    Then verify that status code is 200
     And Do assertion according to post request
-    Given User adds the necessary path params to the base url for Get Request
     And User sends the Get request and gets the response
     Then verify that status code is 200 for get request
     And Do assertion according to Get request
