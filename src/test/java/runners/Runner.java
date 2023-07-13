@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
         glue = {"stepdefinitions", "hooks"},
         dryRun = false,
 
-        tags = "@US_006_TC12_API"
+        tags = "@US_008_TC04_API"
 
 
 )

@@ -2,6 +2,8 @@ package stepdefinitions.ui;
 
 
 import com.github.javafaker.Faker;
+import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
+import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,6 +23,8 @@ import pojos.contactPojos.Root;
 import utilities.JsonUtils;
 import utilities.ReusableMethods;
 
+import java.util.Random;
+
 public class US_06_API {
 
     Response response;
@@ -38,13 +42,22 @@ public class US_06_API {
     @And("User sets the expected data")
     public void userSetsTheExpectedData() {
         String name = faker.name().firstName();
-        String lastname = faker.name().lastName();
-        String username = name+lastname;
-        String password=name.toUpperCase().substring(0,1)+lastname.toLowerCase().substring(0,5)+"1234.";
-        String phoneNumber = faker.phoneNumber().cellPhone();
-        String ssnNumber = faker.idNumber().ssnValid();
+        String surname = faker.name().lastName();
+        String username = name+surname;
+        String password=name.toUpperCase().substring(0,1)+surname.toLowerCase().substring(0,2)+"1234AB.";
+        Random random = new Random();
+
+        int n1=random.nextInt(1000);
+        int n2=random.nextInt(1000);
+        int n3=random.nextInt(1000);
+        int n4=random.nextInt(1000);
+        int n5=random.nextInt(1000);
+        String str=""+n1+n2+n3+n4+n5;
+        String phoneNumber = str.substring(0,3)+"-"+str.substring(3,6)+"-"+str.substring(5,9);
+
+        String ssn = faker.idNumber().ssnValid();
         expectedData = new ViceDeanPostPojo("2018-02-05","Norway", "MALE", name, password,
-                phoneNumber, ssnNumber, lastname, username);
+                phoneNumber, ssn, surname, username);
 
       }
 
@@ -54,7 +67,6 @@ public class US_06_API {
                 .header("Authorization", "Bearer "+generateTokenForAdmin())
                 .contentType(ContentType.JSON).body(expectedData)
                 .when()
-//                .post("/{first}/{second}/{third}");
                 .post("https://managementonschools.com/app/vicedean/save");
         response.prettyPrint();
     }
@@ -72,7 +84,7 @@ public class US_06_API {
         Assert.assertEquals(expectedData.getBirthPlace(), json.getString("birthPlace"));
         Assert.assertEquals(expectedData.getGender(), json.getString("gender"));
         Assert.assertEquals(expectedData.getName(), json.getString("name"));
-        Assert.assertEquals(expectedData.getPassword(), json.getString("password"));
+//        Assert.assertEquals(expectedData.getPassword(), json.getString("password"));
         Assert.assertEquals(expectedData.getPhoneNumber(), json.getString("phoneNumber"));
         Assert.assertEquals(expectedData.getSsn(), json.getString("ssn"));
         Assert.assertEquals(expectedData.getSurname(), json.getString("surname"));
@@ -81,14 +93,14 @@ public class US_06_API {
 
 
     //Request URL for get
-    //https://managementonschools.com/app/vicedean/getViceDeanById/21
+    //https://managementonschools.com/app/vicedean/getViceDeanById/
 
 
     @And("User sends the Get request and gets the response")
     public void userSendsTheGetRequestAndGetsTheResponse() {
         userId = json.getInt("userId");   //from response
         response2 = given().header("Authorization", "Bearer "+generateTokenForAdmin()).when()
-                .get("https://managementonschools.com/app/vicedean/getViceDeanById/" + userId);
+                .get("https://managementonschools.com/app/vicedean/getViceDeanById/?userID=" + userId);
         response2.prettyPrint();
     }
 
@@ -99,11 +111,14 @@ public class US_06_API {
     }
 
     @And("Do assertion according to Get request")
-    public void doAssertionAccordingToGetRequest() {
-//        actualData = JsonUtils.convertJsonToJava(response2.asString(), ViceDeanResponsePojo.class);
-        actualData = response2.as(ViceDeanResponsePojo.class);
-        Assert.assertEquals("100 CONTINUE", actualData.getHttpStatus());
-        Assert.assertEquals("string", actualData.getMessage());
+    public void doAssertionAccordingToGetRequest() throws JsonProcessingException {
+        actualData = JsonUtils.convertJsonToJava(response2.asString(), ViceDeanResponsePojo.class);
+//        actualData= new ObjectMapper().readValue(response.asString(), ViceDeanResponsePojo.class);
+//        actualData = response2.as(ViceDeanResponsePojo.class);
+
+
+        Assert.assertEquals("CREATED", actualData.getHttpStatus());
+        Assert.assertEquals("Vice dean Saved", actualData.getMessage());
         Assert.assertEquals(expectedData.getBirthDay(), actualData.getObject().getBirthDay());
         Assert.assertEquals(expectedData.getBirthPlace(),actualData.getObject().getBirthPlace());
         Assert.assertEquals(expectedData.getGender(), actualData.getObject().getGender());
@@ -115,11 +130,25 @@ public class US_06_API {
 
 
 
+
    }
-
-
-
 }
 
-
+/*
+{
+    "object": {
+        "userId": 1481,
+        "username": "amalieringen112",
+        "name": "Amalie",
+        "surname": "Ringen",
+        "birthDay": "2020-01-01",
+        "ssn": "456-82-9456",
+        "birthPlace": "Norway",
+        "phoneNumber": "456-456-7892",
+        "gender": "MALE"
+    },
+    "message": "Vice dean Saved",
+    "httpStatus": "CREATED"
+}
+ */
 
