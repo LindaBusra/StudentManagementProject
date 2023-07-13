@@ -20,7 +20,6 @@ public class AdminAuthentication {
         Response response = given().contentType(ContentType.JSON).body(admin).when().post("https://managementonschools.com/app/auth/login");
         response.prettyPrint();
 
-        response.prettyPrint();
         JsonPath jsonPath = response.jsonPath();
         String unFixedToken = jsonPath.getString("token");
         String token =unFixedToken.substring(7);
