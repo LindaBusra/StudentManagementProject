@@ -1,10 +1,12 @@
 package stepdefinitions.ui;
 
+import com.github.javafaker.Faker;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
@@ -24,6 +26,10 @@ public class US_08_UI {
 
 
   LessonPage lessonPage = new LessonPage();
+  LessonResponseObjectPojo lessonResponseObjectPojo;
+  LessonPostPojo expectedData;
+  LessonResponsePojo actualData;
+  Response response;
 
 
 
@@ -38,15 +44,28 @@ public class US_08_UI {
       lessonPage.lesson.click();
     }
 
+    @When("user passes Lesson Name field without filling")
+    public void userPassesLessonNameFieldWithoutFilling() {
+
+      lessonPage.compulsory.click();
+    }
+
+    @Then("user verifies Required text is visible for Lesson Name field")
+    public void userVerifiesRequiredTextIsVisibleForLessonNameField() {
+      assertTrue( lessonPage.requiredTextForLessonName.isDisplayed());
+    }
 
     @And("user enters name of lesson as {string}")
     public void userEntersNameOfLessonAs(String text) {
-      lessonPage.lessonName.sendKeys(text);
+
+      Faker faker = new Faker();
+      String lessonName = text + faker.number().numberBetween(1000,5000);
+      lessonPage.lessonName.sendKeys(lessonName);
     }
 
     @Then("user verifies {string} text is not visible for Lesson Name field.")
     public void userVerifiesTextIsNotVisibleForLessonNameField(String arg0) {
-     assertTrue( lessonPage.requiredTextForLessonName.isDisplayed());
+     assertTrue( lessonPage.requiredTextForCreditScore.isDisplayed());
     }
 
     @And("user clicks on compulsory checkbox")
@@ -75,40 +94,20 @@ public class US_08_UI {
     }
 
 
-    //----------------------------------------API-------------------------------------------------------------------------
-
-
-
-    LessonResponseObjectPojo lessonResponseObjectPojo;
-    LessonPostPojo expectedData;
-    LessonResponsePojo actualData;
-    Response response;
-
-
-
-  @And("User sends the post request for create lesson and gets the response")
-  public void userSendsThePostRequestForCreateLessonAndGetsTheResponse() {
-    expectedData=new LessonPostPojo(true, 100, "Matlaging for nye");
-
-    response = given().when().contentType(ContentType.JSON).body(expectedData).headers("Authorization","Bearer "+generateTokenForAdmin()).post("https://managementonschools.com/app/lessons/save");
-
-    System.out.println(expectedData);
-
-    assertEquals(200, response.getStatusCode());
+  @Then("user clicks on Submit Button")
+  public void userClicksOnSubmitButton() {
+      lessonPage.submitButton.click();
 
   }
 
-  @And("user does assertion according to Get request")
-  public void userDoesAssertionAccordingToGetRequest() throws JsonProcessingException {
+  @Then("user verifies {string} text is visible for this new lesson")
+  public void userVerifiesTextIsVisibleForThisNewLesson(String arg0) {
 
-    actualData= new ObjectMapper().readValue(response.asString(), LessonResponsePojo.class);
-
-    Assert.assertEquals(expectedData.getCreditScore(),actualData.getObject().getCreditScore());
-    Assert.assertEquals(expectedData.getLessonName(),actualData.getObject().getLessonName());
-    Assert.assertEquals(expectedData.isCompulsory(),actualData.getObject().isCompulsory());
-    Assert.assertEquals("Lesson Created",actualData.getMessage());
-    Assert.assertEquals("httpStatus",actualData.getHttpStatus());
+    assertTrue(lessonPage.lessonCreatedText.isDisplayed());
   }
+
+
+
 }
 
 

@@ -92,7 +92,7 @@ Feature: US_06 Deans should be able to create a Vice Dean account.
     Then user verifies Required text is visible when user does not fill Date Of Birthe field
     And user fills in Date Of Birth field with "dateofbirth"
     Then user verifies Required text is not visible for Date Of Birth field
-    Then user close the browser
+#    Then user close the browser
 
 
 

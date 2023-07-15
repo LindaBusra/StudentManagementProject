@@ -29,8 +29,8 @@ public class GuestUserPage {
 
 
     //these three are also in AdminManagementPage, I tried both of them
-    @FindBy(xpath = "//*[.='Guest User']")
-    public WebElement guestUserButton;
+//    @FindBy(xpath = "//*[.='Guest User']")
+//    public WebElement guestUserButton;
 
 
 //    @FindBy(xpath = "(//div//a[@role='button'])[20]")

@@ -12,7 +12,6 @@ Feature: US_08 Vice Deans should be able to create a lesson.  (Lessons - Add Les
 
 
 
-
   Background: Sign in StudentManagement
     Given user is on the home page :  "login_url"
     When user clicks on login icon
@@ -27,9 +26,10 @@ Feature: US_08 Vice Deans should be able to create a lesson.  (Lessons - Add Les
 
   @US08_TC01
   Scenario: TC_001 Vice Dean should be able to enter the name of lesson.
+    When user passes Lesson Name field without filling
+    Then user verifies Required text is visible for Lesson Name field
     And user enters name of lesson as "Norwegian"
     Then user verifies "Required" text is not visible for Lesson Name field.
-
 
 
 
@@ -41,15 +41,15 @@ Feature: US_08 Vice Deans should be able to create a lesson.  (Lessons - Add Les
 
 
 
-
-
   @US08_TC03
   Scenario: TC_003 Vice Dean should be able to enter the Credit Score.
     And user enters name of lesson as "Norwegian"
     And user clicks on compulsory checkbox
     Then user verifies "Required" text is visible for Credit Score field.
     And user enters the Credit Score as "1500"
-    Then user verifies "Required" text is not visible for Credit Score field.
+    And user verifies "Required" text is not visible for Credit Score field.
+    When user clicks on Submit Button
+    Then user verifies "Lesson Created" text is visible for this new lesson
 
 
 

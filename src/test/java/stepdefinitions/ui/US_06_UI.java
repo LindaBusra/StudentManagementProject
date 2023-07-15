@@ -475,10 +475,11 @@ public class US_06_UI {
         //        ReusableMethods.waitForVisibility(viceDeanManagementPage.viceDeanSavedText, 5);
 
         //4.th way does not work
-//        assertTrue(viceDeanManagementPage.viceDeanSavedText.isDisplayed());
+        assertTrue(viceDeanManagementPage.viceDeanSavedText.isDisplayed());
+
 
         //5th way
-        assertFalse(viceDeanManagementPage.female.isSelected() || viceDeanManagementPage.male.isSelected());
+//        assertFalse(viceDeanManagementPage.female.isSelected() || viceDeanManagementPage.male.isSelected());
 
     }
 

@@ -1,4 +1,4 @@
-package stepdefinitions.ui;
+package stepdefinitions.database;
 
 
 import io.cucumber.java.en.*;

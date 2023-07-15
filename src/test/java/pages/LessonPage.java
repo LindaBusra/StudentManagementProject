@@ -26,14 +26,45 @@ public class LessonPage {
     @FindBy(xpath = "//input[@id='compulsory']")
     public WebElement compulsory;
 
-    @FindBy(xpath = "//button[.='Submit']")
+    @FindBy(xpath = "(//*[@class='fw-semibold btn btn-primary btn-lg'])[2]")
     public WebElement submitButton;
 
     @FindBy(xpath = "(//div[.='Required'])[1]")
     public WebElement requiredTextForLessonName;
 
+
     @FindBy(xpath = "//*[.='Required']")
     public WebElement requiredTextForCreditScore;
+
+    @FindBy(xpath = "//*[.='Lesson Created']")
+    public WebElement lessonCreatedText;
+
+    //columns
+    @FindBy(xpath = "(//*[.='Lesson Name'])[4]")
+    public WebElement lessonNameColumnName;
+
+    @FindBy(xpath = "(//*[.='Compulsory'])[4]")
+    public WebElement compulsoryColumnName;
+
+    @FindBy(xpath = "(//*[.='Credit Score'])[4]")
+    public WebElement creditScoreColumnName;
+
+//    @FindBy(xpath = "//*[.='»']")
+//    public WebElement goToLAstPage;
+
+    @FindBy(xpath = "(//a[@class='page-link'])[8]")
+    public WebElement goToLastPage;
+
+
+
+
+
+
+
+
+    @FindBy(xpath = "//*[@class='fa-solid fa-trash']")
+    public WebElement deleteButton;
+
 
 
 

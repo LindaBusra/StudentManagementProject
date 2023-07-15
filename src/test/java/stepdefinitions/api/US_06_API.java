@@ -1,4 +1,4 @@
-package stepdefinitions.ui;
+package stepdefinitions.api;
 
 
 import com.github.javafaker.Faker;
@@ -45,6 +45,7 @@ public class US_06_API {
         String surname = faker.name().lastName();
         String username = name+surname;
         String password=name.toUpperCase().substring(0,1)+surname.toLowerCase().substring(0,2)+"1234AB.";
+
         Random random = new Random();
 
         int n1=random.nextInt(1000);
@@ -54,6 +55,12 @@ public class US_06_API {
         int n5=random.nextInt(1000);
         String str=""+n1+n2+n3+n4+n5;
         String phoneNumber = str.substring(0,3)+"-"+str.substring(3,6)+"-"+str.substring(5,9);
+
+//
+//        int randomNumber1 = faker.number().numberBetween(100, 899);
+//        int randomNumber2 = faker.number().numberBetween(10, 99);
+//        int randomNumber3 = faker.number().numberBetween(1000, 9999);
+//        String phoneNumber = randomNumber1 + "-" + randomNumber2 + "-" + randomNumber3;
 
         String ssn = faker.idNumber().ssnValid();
         expectedData = new ViceDeanPostPojo("2018-02-05","Norway", "MALE", name, password,
@@ -80,15 +87,15 @@ public class US_06_API {
     public void doAssertionAccordingToPostRequest() {
 
         json = response.jsonPath();
-        Assert.assertEquals(expectedData.getBirthDay(), json.getString("birthDay"));
-        Assert.assertEquals(expectedData.getBirthPlace(), json.getString("birthPlace"));
-        Assert.assertEquals(expectedData.getGender(), json.getString("gender"));
-        Assert.assertEquals(expectedData.getName(), json.getString("name"));
+        Assert.assertEquals(expectedData.getBirthDay(), json.getString("object.birthDay"));
+        Assert.assertEquals(expectedData.getBirthPlace(), json.getString("object.birthPlace"));
+        Assert.assertEquals(expectedData.getGender(), json.getString("object.gender"));
+        Assert.assertEquals(expectedData.getName(), json.getString("object.name"));
 //        Assert.assertEquals(expectedData.getPassword(), json.getString("password"));
-        Assert.assertEquals(expectedData.getPhoneNumber(), json.getString("phoneNumber"));
-        Assert.assertEquals(expectedData.getSsn(), json.getString("ssn"));
-        Assert.assertEquals(expectedData.getSurname(), json.getString("surname"));
-        Assert.assertEquals(expectedData.getUsername(), json.getString("username"));
+        Assert.assertEquals(expectedData.getPhoneNumber(), json.getString("object.phoneNumber"));
+        Assert.assertEquals(expectedData.getSsn(), json.getString("object.ssn"));
+        Assert.assertEquals(expectedData.getSurname(), json.getString("object.surname"));
+        Assert.assertEquals(expectedData.getUsername(), json.getString("object.username"));
     }
 
 
@@ -98,9 +105,9 @@ public class US_06_API {
 
     @And("User sends the Get request and gets the response")
     public void userSendsTheGetRequestAndGetsTheResponse() {
-        userId = json.getInt("userId");   //from response
+        userId = json.getInt("object.userId");   //from response
         response2 = given().header("Authorization", "Bearer "+generateTokenForAdmin()).when()
-                .get("https://managementonschools.com/app/vicedean/getViceDeanById/?userID=" + userId);
+                .get("https://managementonschools.com/app/vicedean/getViceDeanById/" + userId);
         response2.prettyPrint();
     }
 
@@ -112,13 +119,13 @@ public class US_06_API {
 
     @And("Do assertion according to Get request")
     public void doAssertionAccordingToGetRequest() throws JsonProcessingException {
-        actualData = JsonUtils.convertJsonToJava(response2.asString(), ViceDeanResponsePojo.class);
-//        actualData= new ObjectMapper().readValue(response.asString(), ViceDeanResponsePojo.class);
-//        actualData = response2.as(ViceDeanResponsePojo.class);
+//        actualData = JsonUtils.convertJsonToJava(response2.asString(), ViceDeanResponsePojo.class);
+////        actualData= new ObjectMapper().readValue(response.asString(), ViceDeanResponsePojo.class);
+        actualData = response2.as(ViceDeanResponsePojo.class);
 
 
-        Assert.assertEquals("CREATED", actualData.getHttpStatus());
-        Assert.assertEquals("Vice dean Saved", actualData.getMessage());
+        Assert.assertEquals("OK", actualData.getHttpStatus());
+        Assert.assertEquals("Vice dean successfully found", actualData.getMessage());
         Assert.assertEquals(expectedData.getBirthDay(), actualData.getObject().getBirthDay());
         Assert.assertEquals(expectedData.getBirthPlace(),actualData.getObject().getBirthPlace());
         Assert.assertEquals(expectedData.getGender(), actualData.getObject().getGender());
@@ -132,6 +139,9 @@ public class US_06_API {
 
 
    }
+
+
+
 }
 
 /*

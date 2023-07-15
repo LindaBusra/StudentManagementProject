@@ -24,9 +24,6 @@ public class AdminManagementPage {
     @FindBy(xpath = "//*[.='Guest User']")
     public WebElement guestUserButton;
 
-//    @FindBy(xpath = "(//div//a[@role='button'])[20]")
-//    public WebElement guestUserButton;
-
 //    @FindBy(linkText = "Guest User")
 //    public WebElement guestUserButton;
 

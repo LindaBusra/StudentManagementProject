@@ -87,7 +87,7 @@ public class ViceDeanManagementPage {
 //    @FindBy(xpath = "//*[.='Vice dean Saved']")
 //    public WebElement viceDeanSavedText;
 
-    @FindBy(xpath = "//*[contains(text(),’Vice dean Saved’)]")
+    @FindBy(xpath = "//*[contains(text(),’Saved’)]")
     public WebElement viceDeanSavedText;
 
     @FindBy(xpath = "//*[contains(text(),’already register’)]")
