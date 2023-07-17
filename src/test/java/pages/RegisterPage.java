@@ -46,6 +46,37 @@ public class RegisterPage {
 
 
 
+    //Required Texts
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[1]")
+    public WebElement nameRequiredText;
+
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[2]")
+    public WebElement surnameRequiredText;
+
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[3]")
+    public WebElement birthPlaceRequiredText;
+
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[4]")
+    public WebElement phoneNumberRequiredText;
+
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[5]")
+    public WebElement birthDayRequiredText;
 
 
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[6]")
+    public WebElement ssnRequiredText;
+
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[7]")
+    public WebElement usernameRequiredText;
+
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[8]")
+    public WebElement passwordRequiredText;
+
+  //  @FindBy(xpath = "//*[.='Minimum 8 character']")
+ //   public WebElement minimum8CharacterText;
+
+ //   @FindBy(xpath = "//*[contains(text(),'Minimum 8 character')]")
+
+    @FindBy(xpath = "(//div[@class='invalid-feedback'])[8]")
+    public WebElement minimum8CharacterText;
 }
