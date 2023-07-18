@@ -1,31 +1,37 @@
-package pojos;
+package pojos.lessonPojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LessonResponseObjectPojo {
+public class LessonPostPojo {
 
-
+    private boolean compulsory;
     private int creditScore;
     private String lessonName;
-    private boolean compulsory;
 
 
 
     //constructor
 
-    public LessonResponseObjectPojo() {
+    public LessonPostPojo() {
     }
 
-    public LessonResponseObjectPojo(int creditScore, String lessonName, boolean compulsory) {
+    public LessonPostPojo(boolean compulsory, int creditScore, String lessonName) {
+        this.compulsory = compulsory;
         this.creditScore = creditScore;
         this.lessonName = lessonName;
-        this.compulsory = compulsory;
     }
 
+    //getter-setter
 
-//getter-setter
+    public boolean isCompulsory() {
+        return compulsory;
+    }
+
+    public void setCompulsory(boolean compulsory) {
+        this.compulsory = compulsory;
+    }
 
     public int getCreditScore() {
         return creditScore;
@@ -43,24 +49,16 @@ public class LessonResponseObjectPojo {
         this.lessonName = lessonName;
     }
 
-    public boolean isCompulsory() {
-        return compulsory;
-    }
-
-    public void setCompulsory(boolean compulsory) {
-        this.compulsory = compulsory;
-    }
-
 
     //toString
 
 
     @Override
     public String toString() {
-        return "LessonResponseObjectPojo{" +
-                "creditScore=" + creditScore +
+        return "LessonPostPojo{" +
+                "compulsory=" + compulsory +
+                ", creditScore=" + creditScore +
                 ", lessonName='" + lessonName + '\'' +
-                ", compulsory=" + compulsory +
                 '}';
     }
 }

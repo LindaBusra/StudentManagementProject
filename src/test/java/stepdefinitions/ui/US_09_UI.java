@@ -7,9 +7,9 @@ import io.restassured.response.Response;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.LessonPage;
-import pojos.LessonPostPojo;
-import pojos.LessonResponseObjectPojo;
-import pojos.LessonResponsePojo;
+import pojos.lessonPojo.LessonPostPojo;
+import pojos.lessonPojo.LessonResponseObjectPojo;
+import pojos.lessonPojo.LessonResponsePojo;
 import utilities.Driver;
 import utilities.JSUtils;
 import utilities.ReusableMethods;
@@ -104,6 +104,7 @@ public class US_09_UI {
     assertFalse(lastRow.getText().equalsIgnoreCase(createdLesson));
     System.out.println("step6");
   }
+
 
 
 }

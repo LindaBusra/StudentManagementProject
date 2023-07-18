@@ -14,8 +14,19 @@ public class LessonPage {
     @FindBy(xpath = "(//*[.='Lesson Management'])[4]")
     public WebElement lessonManagement;
 
+//    @FindBy(xpath = "(//*[.='Teacher Management'])[4]")
+//    public WebElement teacherManagement;
+
+    @FindBy(xpath = "//*[text()='Teacher Management']")
+    public WebElement teacherManagement;
+
+
+
     @FindBy(id = "controlled-tab-example-tab-lessonsList")
     public WebElement lesson;
+
+    @FindBy(id = "controlled-tab-example-tab-lessonProgram")
+    public WebElement lessonProgram;
 
     @FindBy(id = "lessonName")
     public WebElement lessonName;
@@ -56,15 +67,31 @@ public class LessonPage {
     public WebElement goToLastPage;
 
 
-
-
-
-
-
-
     @FindBy(xpath = "//*[@class='fa-solid fa-trash']")
     public WebElement deleteButton;
 
+
+    //lessonProgram
+    @FindBy(xpath = "//div[@class=' css-1xc3v61-indicatorContainer']")
+    public WebElement selectCourseDropDown;
+
+    @FindBy(id = "educationTermId")
+    public WebElement selectSemesterDropDown;
+
+    @FindBy(id = "day")
+    public WebElement selectDayDropDown;
+
+    @FindBy(id = "startTime")
+    public WebElement startTime;
+
+    @FindBy(id = "stopTime")
+    public WebElement stopTime;
+
+    @FindBy(xpath= "(//*[.='Submit'])[7]")
+    public WebElement addLessonProgramSubmitButton;
+
+    @FindBy(xpath= "//*[.='Created Lesson Program']")
+    public WebElement createdLessonProgram;
 
 
 

@@ -1,4 +1,4 @@
-package pojos;
+package pojos.lessonPojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -10,6 +10,7 @@ public class LessonResponsePojo {
     private String message;
     private String httpStatus;
     private LessonResponseObjectPojo object;
+
 
 
 

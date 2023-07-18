@@ -37,10 +37,6 @@ public class US_07_API {
     public void userVerifiesThatStatusCodeIsForGetContactMessages(int statusCode) {
         Assert.assertEquals(statusCode, response.getStatusCode());
 
-
-
-
-
     }
 
 

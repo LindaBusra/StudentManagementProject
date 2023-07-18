@@ -235,18 +235,18 @@ public class US_06_UI {
     @Then("user fills in Phone number field with {string}")
     public void userFillsInPhoneNumberFieldWith(String text) {
 
-//        Random random = new Random();
-//
-//        int n1=random.nextInt(1000);
-//        int n2=random.nextInt(1000);
-//        int n3=random.nextInt(1000);
-//        int n4=random.nextInt(1000);
-//        int n5=random.nextInt(1000);
-//        String str=""+n1+n2+n3+n4+n5;
-//        String phoneNumber = str.substring(0,3)+"-"+str.substring(3,6)+"-"+str.substring(5,9);
+        Random random = new Random();
+
+        int n1=random.nextInt(1000);
+        int n2=random.nextInt(1000);
+        int n3=random.nextInt(1000);
+        int n4=random.nextInt(1000);
+        int n5=random.nextInt(1000);
+        String str=""+n1+n2+n3+n4+n5;
+        String phoneNumber = str.substring(0,3)+"-"+str.substring(3,6)+"-"+str.substring(5,9);
 
         //or
-        String phoneNumber = faker.phoneNumber().cellPhone();
+//        String phoneNumber = faker.phoneNumber().cellPhone();
 
         viceDeanManagementPage.phoneNumber.sendKeys(phoneNumber);
     }

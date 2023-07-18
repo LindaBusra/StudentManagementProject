@@ -32,6 +32,9 @@ public class HomePage {
     @FindBy(xpath = "//*[.='Contact']")
     public WebElement contactIcon;
 
+    @FindBy(xpath = "//*[.='Teacher Management']")
+    public WebElement teacherManagement;
+
 
 
 }

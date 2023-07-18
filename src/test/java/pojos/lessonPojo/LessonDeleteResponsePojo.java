@@ -1,4 +1,4 @@
-package pojos;
+package pojos.lessonPojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -47,7 +47,6 @@ public class LessonDeleteResponsePojo {
 
 
     //toString
-
 
     @Override
     public String toString() {

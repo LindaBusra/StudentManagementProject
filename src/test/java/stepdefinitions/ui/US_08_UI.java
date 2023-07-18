@@ -1,26 +1,18 @@
 package stepdefinitions.ui;
 
 import com.github.javafaker.Faker;
-import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.Assert;
-import pages.AdminManagementPage;
-import pages.ContactGetAllPage;
 import pages.LessonPage;
-import pojos.LessonPostPojo;
-import pojos.LessonResponseObjectPojo;
-import pojos.LessonResponsePojo;
+import pojos.lessonPojo.LessonPostPojo;
+import pojos.lessonPojo.LessonResponseObjectPojo;
+import pojos.lessonPojo.LessonResponsePojo;
 import utilities.Driver;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
-import static utilities.AdminAuthentication.generateTokenForAdmin;
 
 public class US_08_UI {
 
@@ -32,12 +24,10 @@ public class US_08_UI {
   Response response;
 
 
-
-    @And("user clicks on LessonManagement Button")
-    public void userClicksOnLessonManagementButton() {
-        lessonPage.lessonManagement.click();
-    }
-
+  @And("user clicks on Lesson Management Button")
+  public void userClicksOnLessonManagementButton() {
+    lessonPage.lessonManagement.click();
+  }
 
     @Then("user clicks on Lesson field")
     public void userClicksOnLessonField() {

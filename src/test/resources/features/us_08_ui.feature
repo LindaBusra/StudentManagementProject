@@ -19,7 +19,7 @@ Feature: US_08 Vice Deans should be able to create a lesson.  (Lessons - Add Les
     And user enters valid password "myViceDean_valid_password" in password input
     And user clicks on Login Button
     And user clicks on Menu Button
-    And user clicks on LessonManagement Button
+    And user clicks on Lesson Management Button
     Then user clicks on Lesson field
 
 

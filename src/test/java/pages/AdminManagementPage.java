@@ -20,8 +20,19 @@ public class AdminManagementPage {
     @FindBy(xpath = "//*[.='Contact Get All']")
     public WebElement contactGetAllButton;
 
+
+
     //these three are also in GuestUserPage, I tried both of them
-    @FindBy(xpath = "//*[.='Guest User']")
+//    @FindBy(xpath = "//a[.='Guest User']")
+//    public WebElement guestUserButton;
+
+//    @FindBy(xpath = "//a[text()='Guest User']")
+//    public WebElement guestUserButton;
+
+//    @FindBy(xpath = "//*[.='Guest User']")
+//    public WebElement guestUserButton;
+
+    @FindBy(xpath = "(//*[@role='button'])[20]")
     public WebElement guestUserButton;
 
 //    @FindBy(linkText = "Guest User")

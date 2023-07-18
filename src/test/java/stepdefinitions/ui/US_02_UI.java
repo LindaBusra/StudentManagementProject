@@ -1,28 +1,17 @@
 package stepdefinitions.ui;
 
-import com.github.javafaker.Faker;
+
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import org.junit.Assert;
 import pages.*;
 import utilities.ConfigReader;
 import utilities.Driver;
-import utilities.JdbcUtils;
 import utilities.ReusableMethods;
 
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Random;
-
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 public class US_02_UI {
 
-    HomePage homePage = new HomePage();
-    LoginPage loginPage = new LoginPage();
+
     AdminManagementPage adminManagementPage = new AdminManagementPage();
     GuestUserPage guestUserPage = new GuestUserPage();
 
@@ -32,11 +21,10 @@ public class US_02_UI {
     @And("user clicks on GuestUser Button")
     public void userClicksOnGuestUserButton() {
 
-//        Driver.getDriver().navigate().to("https://managementonschools.com/guest-user");   //it does not work
-
-        adminManagementPage.guestUserButton.click();                                            //it does not work
-
+//        Driver.getDriver().get("https://managementonschools.com/guest-user");       //it does not work
+//        adminManagementPage.guestUserButton.click();                                            //it does not work
 //        ReusableMethods.clickWithJS(adminManagementPage.guestUserButton);                   //it does not work
+        ReusableMethods.clickWithJS(guestUserPage.guestUserButton);
 
 
     }

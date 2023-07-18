@@ -3,25 +3,18 @@ package stepdefinitions.api;
 
 import com.github.javafaker.Faker;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Assert;
-import pojos.ViceDeanPostPojo;
+import pojos.viceDeanPojo.ViceDeanPostPojo;
 
-import static base_url.StudentManagementBaseUrlWithoutAnnotation.spec;
 import static io.restassured.RestAssured.given;
 import static utilities.AdminAuthentication.generateTokenForAdmin;
 
-import pojos.ViceDeanResponsePojo;
-
-import pojos.contactPojos.Root;
-import utilities.JsonUtils;
-import utilities.ReusableMethods;
+import pojos.viceDeanPojo.ViceDeanResponsePojo;
 
 import java.util.Random;
 
@@ -106,6 +99,8 @@ public class US_06_API {
     @And("User sends the Get request and gets the response")
     public void userSendsTheGetRequestAndGetsTheResponse() {
         userId = json.getInt("object.userId");   //from response
+//        System.out.println(json.getString("object.name"));
+//        System.out.println(json.getString("object.surname"));
         response2 = given().header("Authorization", "Bearer "+generateTokenForAdmin()).when()
                 .get("https://managementonschools.com/app/vicedean/getViceDeanById/" + userId);
         response2.prettyPrint();
