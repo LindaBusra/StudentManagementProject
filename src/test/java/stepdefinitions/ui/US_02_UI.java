@@ -23,8 +23,12 @@ public class US_02_UI {
 
 //        Driver.getDriver().get("https://managementonschools.com/guest-user");       //it does not work
 //        adminManagementPage.guestUserButton.click();                                            //it does not work
+
 //        ReusableMethods.clickWithJS(adminManagementPage.guestUserButton);                   //it does not work
-        ReusableMethods.clickWithJS(guestUserPage.guestUserButton);
+//        ReusableMethods.clickWithJS(adminManagementPage.guestUserButton);
+
+        adminManagementPage.guestUserButton.click();
+        ReusableMethods.waitFor(2);
 
 
     }

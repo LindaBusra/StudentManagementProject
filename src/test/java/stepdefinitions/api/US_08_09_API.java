@@ -47,12 +47,17 @@ public class US_08_09_API {
 
     response = given().when().contentType(ContentType.JSON).body(expectedData).headers("Authorization","Bearer "+generateTokenForAdmin()).post("https://managementonschools.com/app/lessons/save");
     response.prettyPrint();
+
+    //new added
+    assertTrue(response.asString().contains("Lesson Created"));
+    assertTrue(response.asString().contains(lessonName));
   }
 
 
   @Then("user verifies that status code is {int}")
   public void userVerifiesThatStatusCodeIs(int statusCode) {
     assertEquals(statusCode, response.getStatusCode());
+
   }
 
 
@@ -100,7 +105,7 @@ public class US_08_09_API {
     System.out.println(responsePojo);
 
     //FROM LessonResponsePojo I take the value of lessonId
-    int lessonId = responsePojo.getObject().getLessonId();
+    lessonId = responsePojo.getObject().getLessonId();
     System.out.println("I will delete lesson with lessonId: " + lessonId);
 
 

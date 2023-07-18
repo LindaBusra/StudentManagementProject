@@ -1,6 +1,5 @@
 package stepdefinitions.api;
 
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.restassured.http.ContentType;
@@ -44,6 +43,8 @@ public class US_10_API {
                 .when()
                 .post("https://managementonschools.com/app/lessonPrograms/save");
         response.prettyPrint();
+
+
     }
 
     @Then("verify that status code is {int} for lesson program")
@@ -62,6 +63,7 @@ public class US_10_API {
         Assert.assertEquals(expectedData.getStopTime(),stoptime);
 
 
+
         ArrayList<Object> list1 = (ArrayList<Object>) json.getList("object.lessonName");
 //        System.out.println(json.getString("object.lessonName"));
 //        System.out.println(list1);
@@ -73,7 +75,6 @@ public class US_10_API {
 
         //I could not assert it, actually I dont need write String.valueOf. but I don't know how can I fix it
 //        Assert.assertEquals(String.valueOf(expectedData.getEducationTermId()), json.getString("object.lessonName[0].lessonId"));
-
 
     }
 
@@ -95,14 +96,25 @@ public class US_10_API {
     public void doAssertionAccordingToGetRequestForCreatedLessonProgram() {
         actualData = response2.as(LessonProgramResponsePojo.class);
 
-//        Assert.assertEquals("Created Lesson Program", actualData.getMessage());
-//        Assert.assertEquals("CREATED", actualData.getHttpStatus());
+
 
     }
 }
 
 
 /*
+
+{
+  "day": "MONDAY",
+  "educationTermId": 2,
+  "lessonIdList": [
+    2
+  ],
+  "startTime": "15:00",
+  "stopTime": "18:00"
+}
+
+
 
 response body :
 {
@@ -124,4 +136,3 @@ response body :
     "httpStatus": "CREATED"
 }
  */
-
